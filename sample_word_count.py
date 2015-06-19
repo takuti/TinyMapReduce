@@ -1,4 +1,4 @@
-from mapreduce import TinyMapReduce
+from tiny_map_reduce import TinyMapReduce
 
 def map_func(txt_filename):
   with open(txt_filename, 'r') as f:
