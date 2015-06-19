@@ -1,4 +1,5 @@
 import multiprocessing
+import time
 
 class TinyMapReduce:
 
@@ -8,8 +9,8 @@ class TinyMapReduce:
     self.reduce_func = reduce_func
 
     # MapReduce app spawns N Mapper processes and M Reducer processes
-    self.map_workers = multiprocessing.Pool(N)
-    self.reduce_workers = multiprocessing.Pool(M)
+    self.N = N
+    self.M = M
 
   def __call__(self, txt_filenames):
     """Specifications of TinyMapReduce
@@ -28,7 +29,10 @@ class TinyMapReduce:
     # The result will be output to a temporary file
     # Each mapper returns the temporary file's name and keys in the file
     # responses: [([keys_in_tmp1], tmp1_name), ([keys_in_tmp2], tmp2_name), ...]
-    responses = self.map_workers.map(self.map_func, txt_filenames)
+    pool = multiprocessing.Pool(self.N)
+    responses = pool.map(self.map_func, txt_filenames)
+    pool.close()
+    pool.join()
 
     # get all temporary files' name and existing keys
     tmp_filenames = []
@@ -40,7 +44,10 @@ class TinyMapReduce:
 
     # Reduce function handles each key for all temporary files
     # arg for reduce_func: (key, [tmp1_name, tmp2_name, ...]) (= one tuple)
-    results = self.reduce_workers.map(self.reduce_func, zip(all_keys, [tmp_filenames] * len(all_keys)))
+    pool = multiprocessing.Pool(self.M)
+    results = pool.map(self.reduce_func, zip(all_keys, [tmp_filenames] * len(all_keys)))
+    pool.close()
+    pool.join()
 
     # reduced results will have tuples of (key, value)
     # these tuples are output to one file `results.txt` with key-value format

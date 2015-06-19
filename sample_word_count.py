@@ -1,6 +1,10 @@
+import time
+from multiprocessing import current_process
 from tiny_map_reduce import TinyMapReduce
 
 def map_func(txt_filename):
+  print('[map] %s: started at %s' % (current_process().name, time.ctime().split()[3]))
+
   with open(txt_filename, 'r') as f:
     lines = f.readlines()
 
@@ -22,6 +26,8 @@ def map_func(txt_filename):
   return (wc_dict.keys(), tmp_filename)
 
 def reduce_func((word, tmp_filenames)):
+  print('[reduce] %s: started at %s' % (current_process().name, time.ctime().split()[3]))
+
   cnt = 0
 
   # reduce results for the given word from all tmporary files
