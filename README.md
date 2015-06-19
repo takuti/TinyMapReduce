@@ -21,10 +21,15 @@ Note that MapReduce app spawns N Mapper processes and M Reducer processes. (both
 - Map function takes a text file, and handles lines one-by-one
 - The result will be output to a temporary file
 - The function returns the temporary file's name and keys in the file
-- :return [([keys_in_tmp1], tmp1_name), ([keys_in_tmp2], tmp2_name), ...]:
+- **Return** [([keys_in_tmp1], tmp1_name), ([keys_in_tmp2], tmp2_name), ...]
 
 #### Reduce function (reduce_func)
 
 - Reduce function handles each key for all temporary files
 - The argument will be one tuple as: (key, [tmp1_name, tmp2_name, ...])
-- :return [(key1, value1), (key2, value2), ...]:
+- **Return** [(key1, value1), (key2, value2), ...]
+
+### References
+
+- http://pymotw.com/2/multiprocessing/mapreduce.html
+- http://matsulib.hatenablog.jp/entry/2014/06/19/001050
