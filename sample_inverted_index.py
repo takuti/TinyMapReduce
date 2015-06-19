@@ -2,6 +2,10 @@ import time
 from multiprocessing import current_process
 from tiny_map_reduce import TinyMapReduce
 
+"""Good reference for "inverted index":
+http://www.slideshare.net/nokuno/hadoopreading06-data-intensive4
+"""
+
 def map_func(txt_filename):
   print('[map] %s: started at %s' % (current_process().name, time.ctime().split()[3]))
 
