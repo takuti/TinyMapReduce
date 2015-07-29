@@ -9,12 +9,12 @@ Requirements for this library is described [here](https://sites.google.com/site/
 ```python
 from tiny_map_reduce import TinyMapReduce
 
-master = TinyMapReduce(map_func, 2, reduce_func, 2)
+master = TinyMapReduce(map_func, reduce_func)
 txt_filenames = ['texts/1.txt', 'texts/2.txt']
 master(txt_filenames)
 ```
 
-Note that MapReduce app spawns N Mapper processes and M Reducer processes. (both of N and M are 2 in the above example)
+Note that MapReduce app spawns N Mapper/reducer processes. (3rd argument of TinyMapReduce() indicates N; default value is None which sets the number of available CPUs to N)
 
 #### Map function (map_func)
 
