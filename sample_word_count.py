@@ -44,7 +44,7 @@ def reduce_func((word, tmp_filenames)):
   return (word, cnt)
 
 def main():
-  master = TinyMapReduce(map_func, 2, reduce_func, 2)
+  master = TinyMapReduce(map_func, reduce_func)
   txt_filenames = ['texts/1.txt', 'texts/2.txt']
   master(txt_filenames)
 
